@@ -125,27 +125,6 @@ describe('Order repository test', () => {
 		expect(foundOrder).toStrictEqual(order)
 	})
 
-	it('should find an order', async () => {
-		const customer = new Customer('customerId', 'customer')
-		customer.Address = new Address('street', 1, 'zip', 'city')
-		const product = new Product('productId', 'product', 1)
-		const orderItems = [
-			new OrderItem('orderItemId', 'orderItem', 1, product.id, 1),
-		]
-		const order = new Order('orderId', customer.id, orderItems)
-		const customerRepository = new CustomerRepository()
-		const productRepository = new ProductRepository()
-		const orderRepository = new OrderRepository()
-		await Promise.all([
-			customerRepository.create(customer),
-			productRepository.create(product),
-		]).then(() => orderRepository.create(order))
-
-		const foundOrder = await orderRepository.find(order.id)
-
-		expect(foundOrder).toStrictEqual(order)
-	})
-
 	it('should find all orders', async () => {
 		const customer = new Customer('customerId', 'customer')
 		customer.Address = new Address('street', 1, 'zip', 'city')
