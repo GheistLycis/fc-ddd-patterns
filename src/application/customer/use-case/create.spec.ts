@@ -1,9 +1,12 @@
+import EnviaConsoleLogHandler from '../../../domain/@shared/event/handler/log'
+import EnviaConsoleLog1Handler from '../../../domain/@shared/event/handler/log-1'
+import EnviaConsoleLog2Handler from '../../../domain/@shared/event/handler/log-2'
 import Address from '../../../domain/customer/value-object/address'
 import CustomerEventDispatcherFixture from '../../../tests/fixtures/domain/customer/event/event-dispatcher'
 import CustomerRepositoryFixture from '../../../tests/fixtures/infrastructure/customer/repository'
 import CreateCustomerUseCase from './create'
 
-describe('CreateCustomerUseCase test', () => {
+describe('CreateCustomerUseCase', () => {
 	beforeEach(jest.clearAllMocks)
 
 	it('should create a new customer', async () => {
@@ -52,8 +55,16 @@ describe('CreateCustomerUseCase test', () => {
 	})
 
 	it('should dispatch a CustomerCreated event upon successful creation', async () => {
+		const spyConsoleLog = jest.spyOn(console, 'log')
 		const mockRepository = new CustomerRepositoryFixture()
-		const mockEventDispatcher = new CustomerEventDispatcherFixture()
+		const mockEventDispatcher = new CustomerEventDispatcherFixture(
+			jest.fn().mockImplementation(event => {
+				if (event.constructor.name === 'CustomerCreated') {
+					new EnviaConsoleLog1Handler().handle(event)
+					new EnviaConsoleLog2Handler().handle(event)
+				}
+			})
+		)
 		const usecase = new CreateCustomerUseCase(
 			mockRepository,
 			mockEventDispatcher
@@ -70,12 +81,26 @@ describe('CreateCustomerUseCase test', () => {
 			dataTimeOccurred: expect.any(Date),
 			eventData: { id: expect.any(String), name: 'name' },
 		})
-		expect.assertions(2)
+		expect(spyConsoleLog).toHaveBeenCalledWith(
+			'Esse é o primeiro console.log do evento: CustomerCreated'
+		)
+		expect(spyConsoleLog).toHaveBeenLastCalledWith(
+			'Esse é o segundo console.log do evento: CustomerCreated'
+		)
+		expect(spyConsoleLog).toHaveBeenCalledTimes(2)
+		expect.assertions(5)
 	})
 
 	it("should dispatch a CustomerChangedAddress event when changing customer's address", async () => {
+		const spyConsoleLog = jest.spyOn(console, 'log')
 		const mockRepository = new CustomerRepositoryFixture()
-		const mockEventDispatcher = new CustomerEventDispatcherFixture()
+		const mockEventDispatcher = new CustomerEventDispatcherFixture(
+			jest.fn().mockImplementation(event => {
+				if (event.constructor.name === 'CustomerChangedAddress') {
+					new EnviaConsoleLogHandler().handle(event)
+				}
+			})
+		)
 		const usecase = new CreateCustomerUseCase(
 			mockRepository,
 			mockEventDispatcher
@@ -102,5 +127,8 @@ describe('CreateCustomerUseCase test', () => {
 			dataTimeOccurred: expect.any(Date),
 			eventData: expect.stringMatching(eventData),
 		})
+		expect(spyConsoleLog).toHaveBeenLastCalledWith(
+			expect.stringMatching(eventData)
+		)
 	})
 })

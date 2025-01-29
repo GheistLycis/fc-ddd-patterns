@@ -12,7 +12,7 @@ import OrderItemModel from './order-item.model'
 import OrderModel from './order.model'
 import OrderRepository from './order.repository'
 
-describe('Order repository test', () => {
+describe('OrderRepository', () => {
 	let sequelize: Sequelize
 
 	beforeEach(async () => {

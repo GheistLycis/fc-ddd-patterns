@@ -4,7 +4,7 @@ import CustomerCreated from './events/customer-created'
 
 const mockEventName = 'CustomerCreated'
 
-describe('CustomerEventDispatcher tests', () => {
+describe('CustomerEventDispatcher', () => {
 	it('should register an event handler', () => {
 		const eventDispatcher = new CustomerEventDispatcher()
 		const eventHandler = new EnviaConsoleLogHandler()
