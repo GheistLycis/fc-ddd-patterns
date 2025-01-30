@@ -1,8 +1,8 @@
 import { v4 as uuid } from 'uuid'
 import EventDispatcherInterface from '../../../domain/@shared/event/event-dispatcher.interface'
 import Customer from '../../../domain/customer/entity/customer'
-import CustomerChangedAddress from '../../../domain/customer/event/events/customer-changed-address'
-import CustomerCreated from '../../../domain/customer/event/events/customer-created'
+import CustomerChangedAddress from '../../../domain/customer/event/event/customer-changed-address'
+import CustomerCreated from '../../../domain/customer/event/event/customer-created'
 import CustomerRepositoryInterface from '../../../domain/customer/repository/customer-repository.interface'
 import CreateCustomer from '../value-object/create'
 

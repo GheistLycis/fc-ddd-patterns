@@ -1,5 +1,5 @@
-import EventHandlerInterface from './event-handler.interface'
-import EventInterface from './event.interface'
+import EventHandlerInterface from '../../../@shared/event/handler/event-handler.interface'
+import EventInterface from '../../../@shared/event/handler/event.interface'
 
 export default class EnviaConsoleLog1Handler implements EventHandlerInterface {
 	handle(event: EventInterface): void {

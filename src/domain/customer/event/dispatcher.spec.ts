@@ -1,6 +1,6 @@
-import EnviaConsoleLogHandler from '../../@shared/event/handler/log'
 import CustomerEventDispatcher from './dispatcher'
-import CustomerCreated from './events/customer-created'
+import CustomerCreated from './event/customer-created'
+import EnviaConsoleLogHandler from './handler/envia-console-log'
 
 const mockEventName = 'CustomerCreated'
 

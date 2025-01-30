@@ -1,7 +1,7 @@
-import EnviaConsoleLogHandler from '../../../domain/@shared/event/handler/log'
-import EnviaConsoleLog1Handler from '../../../domain/@shared/event/handler/log-1'
-import EnviaConsoleLog2Handler from '../../../domain/@shared/event/handler/log-2'
 import CustomerEventDispatcher from '../../../domain/customer/event/dispatcher'
+import EnviaConsoleLogHandler from '../../../domain/customer/event/handler/envia-console-log'
+import EnviaConsoleLog1Handler from '../../../domain/customer/event/handler/envia-console-log-1'
+import EnviaConsoleLog2Handler from '../../../domain/customer/event/handler/envia-console-log-2'
 import CustomerRepository from '../../customer/repository/sequelize/customer.repository'
 
 export default class CustomerContainer {
